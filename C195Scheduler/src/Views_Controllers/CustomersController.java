@@ -54,6 +54,7 @@ public class CustomersController{
     @FXML private TextField customerCountrytf;
     
     @FXML private Label customerDetailsHeader;
+    @FXML private Label errorLabel;
     
     private C195Scheduler mainApp;
     private User currentUser;
@@ -77,16 +78,27 @@ public class CustomersController{
         resetModCustomer();
     }
     
-    @FXML private void editClick() throws IOException, SQLException{
+    @FXML private void deleteClick() throws SQLException{
+        modCustomerSelected = customerTable.getSelectionModel().getSelectedItem();
         if(modCustomerSelected != null){
-            modIdx = -2;
-            enableTextFields();
-            setModCustomer(customerTable.getSelectionModel().getSelectedItem());
-            mainApp.showCustomerScreen(currentUser);
+            String deleteQuery = "DELETE customer.*, address.*"
+                        + " FROM customer, address"
+                        + " WHERE customer.customerId = ?"
+                        + " AND customer.addressId = address.addressId";
+            PreparedStatement deleteStatement = DBConnection.getConn().prepareStatement(deleteQuery);
+            deleteStatement.setInt(1, modCustomerSelected.getCustomerId());
+            deleteStatement.executeUpdate();
+        }
+        setCustomerScreen(mainApp, currentUser);
+    }
+    @FXML private void editClick() throws IOException, SQLException{
+        if(modIdx != -1){
+        enableTextFields();
+        modIdx = -2;
         }
     }
 
-    @FXML private void saveCustomerButton() throws SQLException{
+    @FXML private void saveCustomerButton() throws SQLException, IOException{
         String name = customerNametf.getText();
         String address = customerAddresstf.getText();
         String address2 = customerAddress2tf.getText();
@@ -95,6 +107,11 @@ public class CustomersController{
         String phone = customerPhonetf.getText();
         String country = customerCountrytf.getText();
         
+        String inputErrorCheck = checkInput();
+        if(!inputErrorCheck.isEmpty()){
+            errorLabel.setText(inputErrorCheck);
+        }
+        else{
         if(modIdx == -1){
             //adding a customer not editing
             Country currentCountry = null;
@@ -161,20 +178,28 @@ public class CustomersController{
             st.close();
               
             resetModCustomer();
-            //mainApp.closePopup(currentUser);
+            }
+            modIdx = 0;
+            mainApp.showCustomerScreen(currentUser);
         }
-        modIdx = 0;
+    }
+    
+    @FXML public void goBackClick(ActionEvent e) throws IOException, SQLException{
+        mainApp.showMain(currentUser);
     }
     
     public void setCustomerScreen(C195Scheduler mainApp, User activeUser) throws SQLException{
         this.mainApp = mainApp;
         this.currentUser = activeUser;
         
+        clearCustomerDetails();
         disableTextFields();
-        //setting up cellvalue factories goes here setupCustomers
+        
+       
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         
+        //this makes it easier for someone to login and view the customer they want rather than selecting customer then clicking edit for details
         customerTable.setRowFactory(ttv -> {
             TableRow<Customer> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -197,18 +222,20 @@ public class CustomersController{
         customerTable.getItems().setAll(getCustomerData());
         
         if (modCustomerSelected != null){
-            customerIdtf.setText(Integer.toString(modCustomerSelected.getCustomerId()));
-            customerNametf.setText(modCustomerSelected.getCustomerName());
-            customerAddresstf.setText(modCustomerSelected.getAddress());
-            customerAddresstf.setText(modCustomerSelected.getAddress2());
-            customerCitytf.setText(modCustomerSelected.getCity());
-            customerPostalCodetf.setText(modCustomerSelected.getPostalCode());
-            customerCountrytf.setText(modCustomerSelected.getCountry());
-            customerPhonetf.setText(modCustomerSelected.getPhone());
+            populateTextFields();   
         }
     }
     
-    
+    private void populateTextFields(){
+        customerIdtf.setText(Integer.toString(modCustomerSelected.getCustomerId()));
+        customerNametf.setText(modCustomerSelected.getCustomerName());
+        customerAddresstf.setText(modCustomerSelected.getAddress());
+        customerAddress2tf.setText(modCustomerSelected.getAddress2());
+        customerCitytf.setText(modCustomerSelected.getCity());
+        customerPostalCodetf.setText(modCustomerSelected.getPostalCode());
+        customerCountrytf.setText(modCustomerSelected.getCountry());
+        customerPhonetf.setText(modCustomerSelected.getPhone());
+    }
     
     private void resetModCustomer(){
         modCustomerSelected = null;
@@ -253,6 +280,52 @@ public class CustomersController{
         customerPostalCodetf.setEditable(true);
         customerPhonetf.setEditable(true);
         customerCountrytf.setEditable(true);
+    }
+    
+    private String checkInput(){
+        String errorMessage = "";
+        String digitCheck = "\\d+";
+        
+        String name = customerNametf.getText();
+        String address = customerAddresstf.getText();
+        String address2 = customerAddress2tf.getText();
+        String city = customerCitytf.getText();
+        String postalCode = customerPostalCodetf.getText();
+        String phone = customerPhonetf.getText();
+        String country = customerCountrytf.getText();
+        
+        if(name.length() == 0){
+           errorMessage = errorMessage + "Please fill in customer's name. \n";
+        }
+        if(address.length() == 0){
+            errorMessage = errorMessage + "Please fill in customer's address. \n";
+        }
+        if(city.length() == 0){
+            errorMessage = errorMessage + "Please fill in customer's city. \n";
+        }
+        if(postalCode.length() == 0){
+            errorMessage = errorMessage + "Please fill in customer's postal code. \n";
+        }
+        else if (postalCode.length() < 5){
+            errorMessage = errorMessage + "Please fill in a valid customer postal code. \n";
+        }
+        else if (!postalCode.matches(digitCheck)){
+            errorMessage = errorMessage + "Please fill in a valid customer postal code. \n";
+        }
+        if(phone.length() == 0){
+            errorMessage = errorMessage + "Please fill in customer's phone. \n";
+        }
+        else if (phone.length() < 8 || phone.length() > 15){
+            errorMessage = errorMessage + "Please fill in a valid customer phone number. \n";
+        }
+        else if (!phone.matches(digitCheck)){
+            errorMessage = errorMessage + "Please fill in a valid customer phone number. \n";
+        }
+        if(country.length() == 0){
+            errorMessage = errorMessage + "Please fill in customer's country. \n";
+        }
+        
+        return errorMessage;
     }
     
     private Country insertNewCountry(String country, Country currentCountry) throws SQLException{

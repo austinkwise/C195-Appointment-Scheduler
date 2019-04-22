@@ -10,6 +10,8 @@ import Model.User;
 import Views_Controllers.CustomersController;
 import Views_Controllers.LoginController;
 import Views_Controllers.MainController;
+import Views_Controllers.NewApptController;
+import Views_Controllers.ReportsController;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -49,7 +51,7 @@ public class C195Scheduler extends Application {
         primaryStage.show();
     }
     
-    public void showMain(User activeUser) throws IOException{
+    public void showMain(User activeUser) throws IOException, SQLException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/Views_Controllers/Main.fxml"));
         AnchorPane main = (AnchorPane) loader.load();
@@ -77,6 +79,33 @@ public class C195Scheduler extends Application {
         primaryStage.show();
     }
     
+    public void showNewApptScreen(User activeUser) throws IOException, SQLException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Views_Controllers/NewAppt.fxml"));
+        AnchorPane custScreen = (AnchorPane) loader.load();
+        
+        Scene scene = new Scene(custScreen);
+        primaryStage.setScene(scene);
+        
+        NewApptController controller = loader.getController();
+        controller.setNewApptScreen(this, activeUser);
+        
+        primaryStage.show();
+    }
+    
+    public void showReports(User activeUser) throws IOException, SQLException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Views_Controllers/Reports.fxml"));
+        AnchorPane custScreen = (AnchorPane) loader.load();
+        
+        Scene scene = new Scene(custScreen);
+        primaryStage.setScene(scene);
+        
+        ReportsController controller = loader.getController();
+        controller.setReport(this, activeUser);
+        
+        primaryStage.show();
+    }
     /**
      * @param args the command line arguments
      */

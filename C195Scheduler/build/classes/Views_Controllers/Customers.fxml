@@ -13,19 +13,14 @@
     <children>
       <VBox layoutY="1.0" prefHeight="599.0" prefWidth="798.0">
          <children>
-             <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="802.0">
+             <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="493.0">
                <children>
-                  <Button mnemonicParsing="false" text="Appointments">
-
-                  </Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Customers">
-                  </Button>
-                  <Button layoutX="114.0" layoutY="10.0" mnemonicParsing="false" text="Reports">
+                  <Button mnemonicParsing="false" onAction="#goBackClick" text="Go Back">
 
                   </Button>
                </children>
              </HBox>
-            <HBox prefHeight="544.0" prefWidth="798.0">
+            <HBox prefHeight="593.0" prefWidth="798.0">
                <children>
                   <VBox prefHeight="544.0" prefWidth="504.0">
                      <children>
@@ -38,17 +33,16 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="86.0" prefWidth="416.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="74.0" text="Edit" />
-                              <Button layoutX="181.0" layoutY="36.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" text="Delete">
+                              <Button layoutX="181.0" layoutY="36.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="34.0" prefWidth="91.0" text="Delete">
 
                               </Button>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="544.0" prefWidth="470.0">
+                  <VBox prefHeight="596.0" prefWidth="382.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="103.0" prefWidth="382.0">
+                        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="382.0">
                            <children>
                               <Label fx:id="customerDetailsHeader" prefHeight="45.0" prefWidth="201.0" text="Customer Details" />
                               <Button mnemonicParsing="false" onAction="#addNewCustomerBtn" text="+ New Customer">
@@ -121,12 +115,14 @@
                            </children></HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
+                              <Button mnemonicParsing="false" onAction="#editClick" prefHeight="40.0" prefWidth="76.0" text="Edit" />
                               <Button mnemonicParsing="false" onAction="#saveCustomerButton" prefHeight="39.0" prefWidth="77.0" text="Save">
 
                               </Button>
                               <Button layoutX="163.0" layoutY="41.0" mnemonicParsing="false" onAction="#cancelClick" prefHeight="39.0" prefWidth="77.0" text="Cancel" />
                            </children>
                         </HBox>
+                        <Label fx:id="errorLabel" />
                      </children>
                   </VBox>
                </children>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="C195Scheduler.jnlp">
+  <information>
+    <title>C195Scheduler</title>
+    <vendor>austinwise</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="C195Scheduler.jar" size="2058657" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.23-bin.jar" size="834091" download="eager" />
+    <jar href="lib/mysql-connector-java-8.0.15.jar" size="2134905" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="C195Scheduler" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="c195scheduler.C195Scheduler"  name="C195Scheduler" />
+  <update check="always"/>
+</jnlp>

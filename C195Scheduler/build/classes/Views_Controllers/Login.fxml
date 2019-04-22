@@ -12,27 +12,27 @@
     <children>
       <VBox layoutX="148.0" layoutY="-1.0" prefHeight="601.0" prefWidth="486.0">
          <children>
-            <Label fx:id="headerLabel" alignment="CENTER" prefHeight="210.0" prefWidth="486.0" text="Scheduler Login" textAlignment="CENTER">
+            <Label fx:id="titleLabel" alignment="CENTER" prefHeight="210.0" prefWidth="486.0" text="Scheduler Login" textAlignment="CENTER">
             </Label>
             <HBox prefHeight="123.0" prefWidth="486.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="263.0" text="Username">
+                  <Label fx:id="usernameLabel" alignment="CENTER" prefHeight="31.0" prefWidth="263.0" text="Username">
                   </Label>
                   <TextField fx:id="usernametf" alignment="CENTER" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="126.0" prefHeight="131.0" prefWidth="486.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="263.0" text="Password">
+                  <Label fx:id="passwordLabel" alignment="CENTER" prefHeight="31.0" prefWidth="263.0" text="Password">
                   </Label>
                   <PasswordField fx:id="passwordpf" />
                </children>
             </HBox>
             <AnchorPane prefHeight="394.0" prefWidth="486.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="28.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="71.0" prefWidth="93.0" text="Login" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="27.0" mnemonicParsing="false" onAction="#exitClick" prefHeight="71.0" prefWidth="93.0" text="Exit" />
-                  <Label fx:id="errorLabel" layoutX="214.0" layoutY="139.0" />
+                  <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="28.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="71.0" prefWidth="93.0" text="Login" />
+                  <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="27.0" mnemonicParsing="false" onAction="#exitClick" prefHeight="71.0" prefWidth="93.0" text="Exit" />
+                  <Label fx:id="errorMessage" layoutX="214.0" layoutY="139.0" />
                </children>
             </AnchorPane>
          </children>
