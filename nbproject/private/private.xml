@@ -12,11 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Model/Customer.java</file>
-            <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Views_Controllers/MainController.java</file>
-            <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Views_Controllers/NewApptController.java</file>
             <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Model/Appointment.java</file>
             <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Views_Controllers/ReportsController.java</file>
+            <file>file:/Users/austinwise/Desktop/AW/WGU/C195Scheduler/src/Model/Customer.java</file>
         </group>
     </open-files>
 </project-private>
